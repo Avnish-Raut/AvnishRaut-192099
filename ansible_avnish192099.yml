@@ -1,0 +1,28 @@
+---
+# Ansible playbook for SDC
+- name: avnishraut-192099
+  hosts: host_1
+  tasks:
+    - name: installing nginx and postgresql
+      become: yes
+      become_user: root
+      apt:
+        pkg:
+          - nginx
+          - postgresql
+        state: present
+        update_cache: yes
+    - name: create a directory
+      become_user: root
+      file: path=/home/ubuntu/avnishraut_192099 state=directory mode=0755
+    - name: create a user
+      become_user: root
+      user:
+        name: avnish
+        state: present  
+        password: $6$lMBzgmT1J.bSCKc$fPxhEMd3lr3hk04ov9fQwHEP9xz/109jo/uXB4T7qX1ZAksK2PQXJszDsgrppHOK9Tp/gOZEQjQQxZVRdauJT/
+    - name: uninstall nano
+      become_user: root
+      apt:
+        pkg: nano
+        state: absent
